@@ -40,7 +40,7 @@ public class Solution {
         map.put(8, "восемь");
         map.put(9, "девять");
         map.put(10, "десять");
-        map.put(11, "одинадцать");
+        map.put(11, "одиннадцать");
         map.put(12, "двенадцать");
     }
 
@@ -49,11 +49,23 @@ public class Solution {
         String fileName = reader.readLine();
         reader.close();
 
-        reader = new BufferedReader(new FileReader(fileName));
-        while (reader.ready()) {
-            String[] line = reader.readLine().split(" ");
-
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
+        while (bufferedReader.ready()) {
+            StringBuilder sb = new StringBuilder();
+            String[] line = bufferedReader.readLine().split(" ");
+            for (int i = 0; i < line.length; i++) {
+                if (line[i].matches("\\d*")) {
+                    int d = Integer.valueOf(line[i]);
+                    String s = map.get(d);
+                    if (s != null)
+                        line[i] = s;
+                }
+                if (i>0) sb.append(" ");
+                sb.append(line[i]);
+            }
+            System.out.println(sb.toString());
         }
+        bufferedReader.close();
 
     }
 }
